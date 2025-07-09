@@ -1,5 +1,6 @@
 import ros2bag
 import os
+import argparse
 
 import ros2bag.verb
 import ros2bag.verb.convert
@@ -10,10 +11,15 @@ os.mkdir('bags') if not os.path.exists('bags') else None
 com = com()
 # com.add_arguments('-i', None)
 for i in os.listdir('bags'):
+    print(i)
+    i = os.path.join('bags', i)
     for j in os.listdir(i):
+        print('merda',j)
         if j.endswith('.db3'):
-            com.add_arguments('-i', [os.path.join('bags', i)])
-            com.main()
+            parser = argparse.ArgumentParser()
+            com.add_arguments(parser,any)
+            args = parser.parse_args()
+            com.main(args=j)
 
 
 """def merge_bags(input_bag_paths, output_bag_path):
